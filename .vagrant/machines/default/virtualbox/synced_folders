@@ -1,0 +1,1 @@
+{"virtualbox":{"/home/vagrant/laravel-test":{"type":null,"mount_options":[],"guestpath":"/home/vagrant/laravel-test","hostpath":"/Users/millidavids/code/realpage-modules/Laravel-Test","disabled":false},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/millidavids/code/realpage-modules/Laravel-Test","disabled":false}}}
