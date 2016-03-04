@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Validator;
 
 class User extends Authenticatable
 {
@@ -12,7 +13,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
     ];
 
     /**
@@ -21,6 +24,19 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
+
+    private $rules = array(
+        'name' => 'required|alpha|min:2',
+        'email' => 'regex:/@/',
+    );
+
+    public function validate($data)
+    {
+        $v = Validator::make($data, $this->rules);
+
+        return $v->passes();
+    }
 }
