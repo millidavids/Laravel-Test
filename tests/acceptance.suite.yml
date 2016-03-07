@@ -7,6 +7,12 @@
 class_name: AcceptanceTester
 modules:
     enabled:
+        - Db:
+            dsn: 'mysql:host=localhost;dbname=testdb'
+            user: 'homestead'
+            password: 'secret'
+            dump: tests/_data/dump.sql
+            cleanup: true
         - PhpBrowser:
             url: http://homestead.app
         - \Helper\Acceptance
