@@ -8,4 +8,5 @@ class_name: FunctionalTester
 modules:
     enabled:
         - Laravel5
+        - Db
         - \Helper\Functional
