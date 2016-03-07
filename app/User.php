@@ -27,16 +27,4 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
-    private $rules = array(
-        'name' => 'required|alpha|min:2',
-        'email' => 'regex:/@/',
-    );
-
-    public function validate($data)
-    {
-        $v = Validator::make($data, $this->rules);
-
-        return $v->passes();
-    }
 }
