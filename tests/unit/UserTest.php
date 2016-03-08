@@ -11,25 +11,32 @@ class UserTest extends \Codeception\TestCase\Test
      */
     protected $tester;
     protected $faker;
-    protected $user;
+    protected $new_user;
+    protected $complete_user;
 
 
     protected function _before()
     {
         $this->faker = Factory::create();
-        $this->user = new \App\User();
+        $this->new_user = new \App\User();
+        $this->complete_user = App\User::create(array(
+            'name' => $this->faker->firstName,
+            'email' => $this->faker->email,
+            'password' => $this->faker->password,
+        ));
     }
 
     protected function _after()
     {
-        $this->user = null;
+        $this->new_user = null;
+        App\User::destroy($this->complete_user->id);
     }
 
     public function testCanCreateAUser()
     {
 
         $user = \App\User::create(array(
-            'name' => $this->faker->name,
+            'name' => $this->faker->firstName,
             'email' => $this->faker->email,
             'password' => $this->faker->password,
         ));
@@ -39,36 +46,62 @@ class UserTest extends \Codeception\TestCase\Test
     public function testUserValidation()
     {
         $this->specify('user requires name, email, and password', function () {
-            $this->assertFalse($this->user->validate(array(
+            $this->assertFalse($this->new_user->validate(array(
                 'email' => $this->faker->email,
                 'password' => $this->faker->password,
             )));
-            $this->assertFalse($this->user->validate(array(
-                'name' => $this->faker->name,
+            $this->assertFalse($this->new_user->validate(array(
+                'name' => $this->faker->firstName,
                 'password' => $this->faker->password,
             )));
-            $this->assertFalse($this->user->validate(array(
-                'name' => $this->faker->name,
+            $this->assertFalse($this->new_user->validate(array(
+                'name' => $this->faker->firstName,
                 'email' => $this->faker->email,
             )));
-            $this->assertTrue($this->user->validate(array(
-                'name' => $this->faker->name,
+            $this->assertTrue($this->new_user->validate(array(
+                'name' => $this->faker->firstName,
                 'email' => $this->faker->email,
                 'password' => $this->faker->password,
             )));
         });
 
         $this->specify('user email must have an @ symbol', function () {
-            $this->assertFalse($this->user->validate(array(
-                'name' => $this->faker->name,
+            $this->assertFalse($this->new_user->validate(array(
+                'name' => $this->faker->firstName,
                 'email' => 'blah.com',
                 'password' => $this->faker->password,
             )));
-            $this->assertTrue($this->user->validate(array(
-                'name' => $this->faker->name,
+            $this->assertTrue($this->new_user->validate(array(
+                'name' => $this->faker->firstName,
                 'email' => $this->faker->email,
                 'password' => $this->faker->password,
             )));
+        });
+    }
+
+    public function testPhoneRelationship()
+    {
+        $this->specify('user can have no phones', function () {
+            $this->assertCount(0, $this->complete_user->phones);
+        });
+
+        $this->specify('user can have one phone', function () {
+            $phone = new App\Phone(array('number' => $this->faker->randomNumber));
+            $this->complete_user->phones()->save($phone);
+            $this->assertCount(1, $this->complete_user->phones);
+        });
+
+        $this->specify('user can have multiple phones', function () {
+            $phones = array(
+                new App\Phone(array(
+                    'number' => $this->faker->randomNumber,
+                )),
+                new App\Phone(array(
+                    'number' => $this->faker->randomNumber,
+                )),
+            );
+            $this->complete_user->phones()->saveMany($phones);
+            $this->assertGreaterThan(1, count($this->complete_user->phones));
         });
     }
 }
