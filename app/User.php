@@ -47,4 +47,9 @@ class User extends Authenticatable
 
         return true;
     }
+
+    public function phones()
+    {
+        return $this->hasMany('App\Phone');
+    }
 }

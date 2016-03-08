@@ -11,8 +11,19 @@ class UserTest extends \Codeception\TestCase\Test
      */
     protected $tester;
     protected $faker;
-    protected $mock;
     protected $user;
+
+
+    protected function _before()
+    {
+        $this->faker = Factory::create();
+        $this->user = new \App\User();
+    }
+
+    protected function _after()
+    {
+        $this->user = null;
+    }
 
     public function testCanCreateAUser()
     {
@@ -59,16 +70,5 @@ class UserTest extends \Codeception\TestCase\Test
                 'password' => $this->faker->password,
             )));
         });
-    }
-
-    protected function _before()
-    {
-        $this->faker = Factory::create();
-        $this->user = new \App\User();
-    }
-
-    protected function _after()
-    {
-        $this->user = null;
     }
 }
