@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePhonesTable extends Migration
+class CreateHeadsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,17 +12,18 @@ class CreatePhonesTable extends Migration
      */
     public function up()
     {
-        Schema::create('phones', function (Blueprint $table) {
+        Schema::create('heads', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->integer('user_id')
-                  ->unsigned()
-                  ->index();
+                ->unsigned()
+                ->index();
             $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onDelete('cascade');
-            $table->integer('number')->unique();
+                ->references('id')
+                ->on('companies')
+                ->onDelete('cascade');
+            $table->string('image_path')->nullable();
+            $table->string('thumbnail_path')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -33,6 +34,6 @@ class CreatePhonesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('phones');
+        Schema::drop('heads');
     }
 }

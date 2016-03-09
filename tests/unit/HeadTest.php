@@ -2,22 +2,21 @@
 
 use Faker\Factory;
 
-class PhoneTest extends \Codeception\TestCase\Test
+class HeadTest extends \Codeception\TestCase\Test
 {
-
     /**
      * @var \UnitTester
      */
     protected $tester;
     protected $faker;
-    protected $phone;
+    protected $head;
     protected $user;
 
     protected function _before()
     {
         Artisan::call('migrate');
         $this->faker = Factory::create();
-        $this->phone = new \App\Phone();
+        $this->head = new \App\Head();
         $this->user = \App\User::create(array(
             'name' => $this->faker->name,
             'email' => $this->faker->email,
@@ -28,32 +27,28 @@ class PhoneTest extends \Codeception\TestCase\Test
     protected function _after()
     {
         Artisan::call('migrate:reset');
-        $this->phone = null;
+        $this->head = null;
         $this->user = null;
     }
 
-    public function testCanCreateAPhone()
+    public function testCanCreateAHead()
     {
-        $this->phone->number = $this->faker->numberBetween(1000000000,
-            9999999999);
-        $this->user->phones()->save($this->phone);
+        $this->user->head()->save($this->head);
     }
 
     public function testCannotMassAssignUserID()
     {
-        $this->phone->update(array(
-            'number' => $this->faker->randomNumber,
+        $this->head->update(array(
             'user_id' => $this->user->id,
         ));
         $this->setExpectedException('Illuminate\Database\QueryException');
-        $this->phone->save();
+        $this->head->save();
     }
 
     public function testPhoneMustHaveAUser()
     {
-        $this->phone->number = $this->faker->randomNumber;
         $this->setExpectedException('Illuminate\Database\QueryException');
-        $this->phone->save();
-        $this->user->phones()->save($this->phone);
+        $this->head->save();
+        $this->user->head()->save($this->head);
     }
 }

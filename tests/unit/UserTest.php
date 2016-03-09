@@ -122,4 +122,13 @@ class UserTest extends \Codeception\TestCase\Test
         $companies[1]->users()->save($this->complete_user);
         $this->assertGreaterThan(1, count($this->complete_user->companies));
     }
+
+    public function testUserCannotHaveMoreThanOneHead()
+    {
+        $this->complete_user->head()->save(new \App\Head());
+        $this->assertEquals(1, count(App\Head::all()));
+        $this->complete_user->head()->save(new \App\Head());
+        $this->assertEquals(2, count(App\Head::all()));
+        $this->assertEquals(1, $this->complete_user->head->id);
+    }
 }
