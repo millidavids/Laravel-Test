@@ -15,8 +15,7 @@ extensions:
 modules:
     config:
         Db:
-            dsn: 'mysql:host=localhost;dbname=testdb'
-            user: 'homestead'
-            password: 'secret'
+            dsn: 'sqlite:memory'
+            user: ''
+            password: ''
             dump: tests/_data/dump.sql
-            cleanup: true

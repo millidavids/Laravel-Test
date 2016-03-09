@@ -11,8 +11,28 @@ class Phone extends Model
     ];
 
     protected $guarded = [
+        'id',
         'user_id',
     ];
+
+    private $rules = array(
+        'number' => 'required',
+        'user_id' => 'required',
+    );
+
+    private $errors;
+
+    public function validate($data)
+    {
+        $v = Validator::make($data, $this->rules);
+
+        if ($v->fails()) {
+            $this->errors = $v->errors();
+            return false;
+        }
+
+        return true;
+    }
 
     public function user()
     {

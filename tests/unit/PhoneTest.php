@@ -4,6 +4,7 @@ use Faker\Factory;
 
 class PhoneTest extends \Codeception\TestCase\Test
 {
+
     /**
      * @var \UnitTester
      */
@@ -14,6 +15,7 @@ class PhoneTest extends \Codeception\TestCase\Test
 
     protected function _before()
     {
+        Artisan::call('migrate');
         $this->faker = Factory::create();
         $this->phone = new \App\Phone();
         $this->user = \App\User::create(array(
@@ -25,6 +27,7 @@ class PhoneTest extends \Codeception\TestCase\Test
 
     protected function _after()
     {
+        Artisan::call('migrate:reset');
         $this->phone = null;
         $this->user = null;
     }
@@ -33,6 +36,24 @@ class PhoneTest extends \Codeception\TestCase\Test
     {
         $this->phone->number = $this->faker->numberBetween(1000000000,
             9999999999);
+        $this->user->phones()->save($this->phone);
+    }
+
+    public function testCannotMassAssignUserID()
+    {
+        $this->phone->update(array(
+            'number' => $this->faker->randomNumber,
+            'user_id' => $this->user->id,
+        ));
+        $this->setExpectedException('Illuminate\Database\QueryException');
+        $this->phone->save();
+    }
+
+    public function testPhoneMustHaveuser()
+    {
+        $this->phone->number = $this->faker->randomNumber;
+        $this->setExpectedException('Illuminate\Database\QueryException');
+        $this->phone->save();
         $this->user->phones()->save($this->phone);
     }
 }

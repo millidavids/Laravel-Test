@@ -18,6 +18,8 @@ class User extends Authenticatable
         'password',
     ];
 
+    protected $guarded = ['id'];
+
     /**
      * The attributes excluded from the model's JSON form.
      *
