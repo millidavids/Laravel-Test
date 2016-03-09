@@ -100,4 +100,26 @@ class UserTest extends \Codeception\TestCase\Test
         $this->complete_user->phones()->saveMany($phones);
         $this->assertGreaterThan(1, count($this->complete_user->phones));
     }
+
+    public function testUserCanHaveNoCompany()
+    {
+        $this->assertCount(0, $this->complete_user->companies);
+    }
+
+    public function testUserCanBelongToMultipleCompanies()
+    {
+        $companies = array(
+            App\Company::create(array(
+                'name' => $this->faker->company,
+                'web_based' => 'false',
+            )),
+            App\Company::create(array(
+                'name' => $this->faker->company,
+                'web_based' => 'false',
+            )),
+        );
+        $companies[0]->users()->save($this->complete_user);
+        $companies[1]->users()->save($this->complete_user);
+        $this->assertGreaterThan(1, count($this->complete_user->companies));
+    }
 }

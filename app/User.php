@@ -18,7 +18,10 @@ class User extends Authenticatable
         'password',
     ];
 
-    protected $guarded = ['id'];
+    protected $guarded = [
+        'id',
+        'company_id',
+    ];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -53,5 +56,10 @@ class User extends Authenticatable
     public function phones()
     {
         return $this->hasMany('App\Phone');
+    }
+
+    public function companies()
+    {
+        return $this->belongsToMany('App\Company', 'company_user');
     }
 }
