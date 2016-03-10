@@ -42,4 +42,9 @@ class Company extends Model
     {
         return $this->belongsToMany('App\User');
     }
+
+    public function images()
+    {
+        return $this->morphMany('App\Image', 'imageable');
+    }
 }

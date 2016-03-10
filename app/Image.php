@@ -4,15 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Head extends Model
+class Image extends Model
 {
     protected $guarded = [
         'id',
-        'user_id',
+        'imageable_id',
+        'imageable_type',
     ];
 
     private $rules = array(
-        'user_id' => 'required',
+        'imageable_id' => 'required',
+        'imageable_type' => 'required',
+        'path' => 'required',
     );
 
     private $errors;
@@ -29,8 +32,8 @@ class Head extends Model
         return true;
     }
 
-    public function user()
+    public function imageable()
     {
-        return $this->belongsTo('App\User');
+        return $this->morphTo();
     }
 }
