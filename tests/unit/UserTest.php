@@ -20,9 +20,9 @@ class UserTest extends \Codeception\TestCase\Test
         $this->faker = Factory::create();
         $this->new_user = new \App\User();
         $this->complete_user = App\User::create(array(
-            'name' => 'bruce',
-            'email' => 'bruce@wayneenterprises.com',
-            'password' => 'batman',
+            'name' => $this->faker->firstName,
+            'email' => $this->faker->email,
+            'password' => $this->faker->password,
         ));
     }
 

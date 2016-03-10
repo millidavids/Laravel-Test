@@ -21,8 +21,6 @@ class CreateHeadsTable extends Migration
                 ->references('id')
                 ->on('companies')
                 ->onDelete('cascade');
-            $table->string('image_path')->nullable();
-            $table->string('thumbnail_path')->nullable();
             $table->timestamps();
         });
     }
