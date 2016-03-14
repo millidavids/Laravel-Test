@@ -14,13 +14,8 @@ class CreateHeadsTable extends Migration
     {
         Schema::create('heads', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')
-                ->unsigned()
-                ->index();
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('companies')
-                ->onDelete('cascade');
+            $table->integer('user_id')->unsigned()->index();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

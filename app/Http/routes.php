@@ -37,4 +37,10 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/home', 'HomeController@index');
 
     Route::resource('user', 'UserController', ['only' => ['show']]);
+
+    Route::get('user/{id}/email', 'UserController@email');
+
+    Route::resource('user.head', 'UserHeadController');
+
+    Route::post('user/{id}/image', 'UserImageController@store');
 });

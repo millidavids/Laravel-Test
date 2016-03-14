@@ -20,8 +20,7 @@ class CreatePhonesTable extends Migration
                   ->index();
             $table->foreign('user_id')
                   ->references('id')
-                  ->on('users')
-                  ->onDelete('cascade');
+                  ->on('users');
             $table->integer('number')->unique();
         });
     }

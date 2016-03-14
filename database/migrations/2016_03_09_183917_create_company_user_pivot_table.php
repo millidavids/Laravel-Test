@@ -18,15 +18,13 @@ class CreateCompanyUserPivotTable extends Migration
                   ->index();
             $table->foreign('company_id')
                   ->references('id')
-                  ->on('companies')
-                  ->onDelete('cascade');
+                  ->on('companies');
             $table->integer('user_id')
                   ->unsigned()
                   ->index();
             $table->foreign('user_id')
                   ->references('id')
-                  ->on('users')
-                  ->onDelete('cascade');
+                  ->on('users');
             $table->primary(['company_id', 'user_id']);
         });
     }
