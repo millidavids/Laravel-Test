@@ -10,6 +10,10 @@
                 <div class="panel-body">
                     Your Application's Landing Page.
                 </div>
+
+                <div class="panel-body">
+                    This first ever user was: {{ App\User::firstUser()->first()->name }}
+                </div>
             </div>
         </div>
     </div>

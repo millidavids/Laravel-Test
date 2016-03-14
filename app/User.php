@@ -72,4 +72,9 @@ class User extends Authenticatable
     {
         return $this->morphMany('App\Image', 'imageable');
     }
+
+    public function scopefirstUser($query)
+    {
+        return $query->where('id', 1);
+    }
 }
