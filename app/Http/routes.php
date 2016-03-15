@@ -36,7 +36,7 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/home', 'HomeController@index');
 
-    Route::resource('user', 'UserController', ['only' => ['show']]);
+    Route::resource('user', 'UserController', ['only' => ['show', 'index']]);
 
     Route::get('user/{id}/email', 'UserController@email');
 
