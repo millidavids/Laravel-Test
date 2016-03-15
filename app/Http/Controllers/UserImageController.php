@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Event;
+use App\Events\ImageUploaded;
 use App\Image;
-use App\Jobs\ThumbnailGenerator;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,7 @@ class UserImageController extends Controller
             'path' => $dest . $filename,
             'thumbnail_path' => $dest . $thumbnail_name
         )));
-        $this->dispatch(new ThumbnailGenerator($image));
+        Event::fire(new ImageUploaded($image));
         return redirect('user/' . $user_id);
     }
 }

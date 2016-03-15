@@ -25,7 +25,7 @@
                             </dd>
                             <dt>Images</dt>
                             <dd>
-                                <div class="h4">Create A Head</div>
+                                <div class="h4">Create An Image</div>
                                 {{ Form::open(array('url' => 'user/'.$user->id.'/image', 'method' => 'POST', 'files' => true)) }}
                                     <div class="control-group">
                                         <div class="controls">
