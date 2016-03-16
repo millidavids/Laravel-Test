@@ -42,5 +42,7 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::resource('user.head', 'UserHeadController');
 
+    Route::resource('company', 'companyController');
+
     Route::post('user/{id}/image', 'UserImageController@store');
 });
