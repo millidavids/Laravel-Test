@@ -10,6 +10,8 @@
                 <div class="panel-body">
                     You are logged in!
                 </div>
+
+                {{ $world }}
             </div>
         </div>
     </div>
