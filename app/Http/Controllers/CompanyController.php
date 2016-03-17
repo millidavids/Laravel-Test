@@ -4,23 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\Http\Requests;
-use App\Transformers\CompanyTransformer;
-use Chrisbjr\ApiGuard\Http\Controllers\ApiGuardController;
 use Illuminate\Support\Facades\Input;
 
-class CompanyController extends ApiGuardController
+class CompanyController extends Controller
 {
     public function index()
     {
         $companies = Company::all();
-
-        return $this->response->withCollection($companies, new CompanyTransformer());
+        return view('company.index', ['companies' => $companies]);
     }
 
     public function show($company_id)
     {
         $company = Company::find($company_id);
-        return $company;
+        return view('company.show', ['company' => $company]);
     }
 
     public function create()
