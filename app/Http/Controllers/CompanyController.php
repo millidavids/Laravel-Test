@@ -4,14 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\Http\Requests;
+use Delatbabel\ApiSecurity\Exceptions\SignatureException;
+use Delatbabel\ApiSecurity\Generators\KeyPair;
+use Delatbabel\ApiSecurity\Generators\Nonce;
+use Delatbabel\ApiSecurity\Helpers\Server;
 use Illuminate\Support\Facades\Input;
 
 class CompanyController extends Controller
 {
     public function index()
     {
+        $server = new Server();
+        $server->setPublicKey(base_path().'/public_key');
+
+        try
+        {
+            $server->verifySignature($_REQUEST);
+
+        } catch (SignatureException $e) {
+            return response(401, 401);
+        }
         $companies = Company::all();
-        return view('company.index', ['companies' => $companies]);
+        return $companies;
     }
 
     public function show($company_id)
