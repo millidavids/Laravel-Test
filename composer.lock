@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "baa3bcbe3249b791c52b852dc9ad0bb4",
-    "content-hash": "2f1da0ca6ffd72f923d4dece8c38e622",
+    "hash": "4c4d53274c1b7c0f973358905d05b78f",
+    "content-hash": "b7e32292e398790afaf7286aad08159a",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -60,6 +60,58 @@
                 "preload"
             ],
             "time": "2015-11-09 22:51:51"
+        },
+        {
+            "name": "delatbabel/apisecurity",
+            "version": "v1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/delatbabel/apisecurity.git",
+                "reference": "bff1c18a24f48fa622dd22112ff34cf676a365a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/delatbabel/apisecurity/zipball/bff1c18a24f48fa622dd22112ff34cf676a365a0",
+                "reference": "bff1c18a24f48fa622dd22112ff34cf676a365a0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "illuminate/cache": "Required to use the Laravel cache facade.",
+                "illuminate/support": "Required to use the Laravel cache facade."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Delatbabel\\ApiSecurity\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Del",
+                    "email": "del@babel.com.au"
+                }
+            ],
+            "description": "API Security Helpers.",
+            "keywords": [
+                "api",
+                "key",
+                "laravel",
+                "nonce",
+                "security",
+                "sign",
+                "signature"
+            ],
+            "time": "2016-01-27 05:05:48"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
