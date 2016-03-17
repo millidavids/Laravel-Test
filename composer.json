@@ -10,7 +10,8 @@
         "intervention/image": "^2.3",
         "illuminate/html": "^5.0",
         "laravelcollective/html": "^5.2",
-        "predis/predis": "~1.0"
+        "predis/predis": "~1.0",
+        "chrisbjr/api-guard": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -162,6 +162,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         App\Providers\CustomServiceProvider::class,
+        Chrisbjr\ApiGuard\Providers\ApiGuardServiceProvider::class,
     ],
 
     /*
@@ -211,6 +212,7 @@ return [
         'Html'      => Collective\Html\HtmlFacade::class,
         'ImageManipulator' => Intervention\Image\Facades\Image::class,
         'World'     => App\Facades\World::class,
+        'ApiGuardAuth' => Chrisbjr\ApiGuard\Facades\ApiGuardAuth::class,
 
     ],
 
