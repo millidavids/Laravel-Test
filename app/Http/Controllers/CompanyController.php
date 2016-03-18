@@ -7,18 +7,18 @@ use App\Http\Requests;
 use Delatbabel\ApiSecurity\Exceptions\SignatureException;
 use Delatbabel\ApiSecurity\Helpers\Server;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $server = new Server();
         $server->setPublicKey(base_path().'/public_key');
 
         try
         {
-            $params = array();
-            $server->verifySignature($params);
+            $server->verifyHMAC($request->all());
 
         } catch (SignatureException $e) {
             return response(401, 401);
