@@ -4,6 +4,6 @@
 Homestead.yaml
 Homestead.json
 .env
-/.vagrant/*
+.vagrant/
 
 tests/_output/*
