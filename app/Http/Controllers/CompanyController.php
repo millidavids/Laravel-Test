@@ -13,62 +13,73 @@ class CompanyController extends Controller
 {
     public function index(Request $request)
     {
-        $server = new Server();
-        $server->setPublicKey(base_path().'/public_key');
-
-        try
-        {
-            $server->verifyHMAC($request->all());
-
-        } catch (SignatureException $e) {
+        if ($this->verifySecurity($request->all())) {
+            $companies = Company::all();
+            return $companies;
+        } else {
             return response(401, 401);
         }
-        $companies = Company::all();
-        return $companies;
     }
 
-    public function show($company_id)
+    public function show(Request $request, $company_id)
     {
-        $company = Company::find($company_id);
-        return view('company.show', ['company' => $company]);
+        if ($this->verifySecurity($request->all())) {
+            $company = Company::find($company_id);
+            return $company;
+        } else {
+            return response(401, 401);
+        }
     }
 
-    public function create()
+    public function store(Request $request)
     {
-        return view('company.create');
+        if ($this->verifySecurity($request->all())) {
+            Company::create(array(
+                'name' => Input::get('name'),
+                'web_based' => true,
+                'url' => Input::get('url')
+            ));
+            return response(201, 201);
+        } else {
+            return response(401, 401);
+        }
     }
 
-    public function edit($company_id)
+    public function update(Request $request, $company_id)
     {
-        $company = Company::find($company_id);
-        return view('company.edit', ['company' => $company]);
+        if ($this->verifySecurity($request->all())) {
+            $company = Company::find($company_id);
+            $company->name = Input::get('name');
+            $company->url = Input::get('url');
+            $company->save();
+
+            return response(202, 202);
+        } else {
+            return response(401, 401);
+        }
     }
 
-    public function store()
+    public function destroy(Request $request, $company_id)
     {
-        Company::create(array(
-            'name' => Input::get('name'),
-            'web_based' => true,
-            'url' => Input::get('url')
-        ));
-
-        return redirect('/company');
+        if ($this->verifySecurity($request->all())) {
+            Company::destroy($company_id);
+            return response(202, 202);
+        } else {
+            return response(401, 401);
+        }
     }
 
-    public function update($company_id)
+    private function verifySecurity(Array $params)
     {
-        $company = Company::find($company_id);
-        $company->name = Input::get('name');
-        $company->url = Input::get('url');
-        $company->save();
+        $server = new Server();
+        $server->setPublicKey(base_path().'/public_key');
+        try
+        {
+            $server->verifyHMAC($params);
 
-        return redirect('/company/'.$company_id);
-    }
-
-    public function destroy($company_id)
-    {
-        Company::destroy($company_id);
-
-        return redirect('/company');
+        } catch (SignatureException $e) {
+            return false;
+        }
+        return true;
     }
 }
