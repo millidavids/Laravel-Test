@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Company;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
+use App\Http\Requests\StoreCompanyRequest;
 
 class CompanyController extends Controller
 {
@@ -31,7 +32,7 @@ class CompanyController extends Controller
         return view('company.edit', ['company' => $company]);
     }
 
-    public function store()
+    public function store(StoreCompanyRequest $request)
     {
         Company::create(array(
             'name' => Input::get('name'),
