@@ -42,7 +42,7 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::resource('user.head', 'UserHeadController');
 
-    Route::resource('company', 'companyController');
+    Route::resource('company', 'CompanyController');
 
     Route::post('user/{id}/image', 'UserImageController@store');
 });

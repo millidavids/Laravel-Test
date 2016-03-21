@@ -162,6 +162,8 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         App\Providers\CustomServiceProvider::class,
+        JeroenG\Packager\PackagerServiceProvider::class,
+        millidavids\SimpleGui\SimpleGuiServiceProvider::class,
     ],
 
     /*
