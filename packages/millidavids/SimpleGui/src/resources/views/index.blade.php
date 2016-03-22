@@ -1,9 +1,13 @@
-{!! view('SimpleGui::table', ['array' => array('joe' => array(1,2,3), 'jeff' => array(1,2,3), 'jerry' => array(1,2,3))]) !!}
+{!! millidavids\SimpleGui\ViewRenderer::table() !!}
+<hr>
 <br>
-{!! view('SimpleGui::dropdown', ['array' => array('joe' => 'jones', 'jeff' => 'jeffries')]) !!}
+{!! millidavids\SimpleGui\ViewRenderer::dropdown() !!}
+<hr>
 <br>
-{!! view('SimpleGui::link', ['link_text' => 'link text']) !!}
+{!! millidavids\SimpleGui\ViewRenderer::link() !!}
+<hr>
 <br>
-{!! view('SimpleGui::textfield', ['array' => array('joe' => 'jones', 'jeff' => 'jeffries')]) !!}
+{!! millidavids\SimpleGui\ViewRenderer::textfield() !!}
+<hr>
 <br>
-{!! view('SimpleGui::label', ['array' => array('joe' => 'jones', 'jeff' => 'jeffries')]) !!}
+{!! millidavids\SimpleGui\ViewRenderer::label() !!}
